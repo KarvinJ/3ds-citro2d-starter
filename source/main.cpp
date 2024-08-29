@@ -133,7 +133,7 @@ int main(int argc, char *argv[])
 
 		update(keyDown);
 
-		// Render the scene
+		// Render the top screen
 		C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
 		C2D_TargetClear(topScreen, blackColor);
 		C2D_SceneBegin(topScreen);
@@ -146,6 +146,7 @@ int main(int argc, char *argv[])
 
 		C3D_FrameEnd(0);
 
+		// Render the bottom screen
 		C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
 		C2D_TargetClear(bottomScreen, blackColor);
 		C2D_SceneBegin(bottomScreen);
