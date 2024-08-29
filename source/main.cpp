@@ -1,7 +1,4 @@
 #include <citro2d.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 // the 3ds has different screen width, but the same screen height.
 const int TOP_SCREEN_WIDTH = 400;
@@ -105,12 +102,9 @@ int main(int argc, char *argv[])
 	C2D_Init(C2D_DEFAULT_MAX_OBJECTS);
 	C2D_Prepare();
 
-	// to initialize console print in the bottom screen
-	// consoleInit(GFX_BOTTOM, NULL);
-
 	// Create top and bottom screens
-	C3D_RenderTarget *top = C2D_CreateScreenTarget(GFX_TOP, GFX_LEFT);
-	C3D_RenderTarget *bottom = C2D_CreateScreenTarget(GFX_BOTTOM, GFX_LEFT);
+	C3D_RenderTarget *topScreen = C2D_CreateScreenTarget(GFX_TOP, GFX_LEFT);
+	C3D_RenderTarget *bottomScreen = C2D_CreateScreenTarget(GFX_BOTTOM, GFX_LEFT);
 
 	// Load the sprite
 	C2D_SpriteSheet sheet = C2D_SpriteSheetLoad("romfs:/gfx/alien_1.t3x");
@@ -130,7 +124,6 @@ int main(int argc, char *argv[])
 	// Main loop
 	while (aptMainLoop())
 	{
-		// printf("\x1b[1;1HSimple citro2d shapes example");
 		hidScanInput();
 
 		u32 keyDown = hidKeysDown();
@@ -142,8 +135,8 @@ int main(int argc, char *argv[])
 
 		// Render the scene
 		C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
-		C2D_TargetClear(top, blackColor);
-		C2D_SceneBegin(top);
+		C2D_TargetClear(topScreen, blackColor);
+		C2D_SceneBegin(topScreen);
 
 		// (float x, float y, float z, float  w, float h, u32 clr)
 		C2D_DrawRectSolid(ball.x, ball.y, ball.z, ball.w, ball.h, ball.color);
@@ -154,8 +147,8 @@ int main(int argc, char *argv[])
 		C3D_FrameEnd(0);
 
 		C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
-		C2D_TargetClear(bottom, blackColor);
-		C2D_SceneBegin(bottom);
+		C2D_TargetClear(bottomScreen, blackColor);
+		C2D_SceneBegin(bottomScreen);
 
 		C2D_DrawRectSolid(bottomBounds.x, bottomBounds.y, bottomBounds.z, bottomBounds.w, bottomBounds.h, bottomBounds.color);
 
