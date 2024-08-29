@@ -8,7 +8,16 @@ const int TOP_SCREEN_WIDTH = 400;
 const int BOTTOM_SCREEN_WIDTH = 320;
 const int SCREEN_HEIGHT = 240;
 
+u32 whiteColor;
+u32 blackColor;
+u32 greenColor;
+u32 redColor;
+u32 blueColor;
+
 const int SPEED = 10;
+
+int ballVelocityX = 5;
+int ballVelocityY = 5;
 
 typedef struct
 {
@@ -20,10 +29,71 @@ typedef struct
 	unsigned int color;
 } Rectangle;
 
+Rectangle spriteBounds;
+Rectangle ball;
+Rectangle bottomBounds;
+
 bool hasCollision(Rectangle bounds, Rectangle ball)
 {
 	return bounds.x < ball.x + ball.w && bounds.x + bounds.w > ball.x &&
 		   bounds.y < ball.y + ball.h && bounds.y + bounds.h > ball.y;
+}
+
+void update(u32 keyDown)
+{
+	// Respond to user input
+	u32 keyHeld = hidKeysHeld();
+
+	if (keyDown & KEY_A)
+	{
+		if (bottomBounds.color == redColor)
+			bottomBounds.color = blueColor;
+		else
+			bottomBounds.color = redColor;
+	}
+
+	if (keyHeld & KEY_LEFT && spriteBounds.x > 0)
+	{
+		spriteBounds.x -= SPEED;
+	}
+
+	else if (keyHeld & KEY_RIGHT && spriteBounds.x < TOP_SCREEN_WIDTH - spriteBounds.w)
+	{
+		spriteBounds.x += SPEED;
+	}
+	else if (keyHeld & KEY_UP && spriteBounds.y > 0)
+	{
+		spriteBounds.y -= SPEED;
+	}
+	else if (keyHeld & KEY_DOWN && spriteBounds.y < SCREEN_HEIGHT - spriteBounds.h)
+	{
+		spriteBounds.y += SPEED;
+	}
+
+	if (ball.x < 0 || ball.x > TOP_SCREEN_WIDTH - ball.w)
+	{
+		ballVelocityX *= -1;
+
+		ball.color = greenColor;
+	}
+
+	else if (ball.y < 0 || ball.y > SCREEN_HEIGHT - ball.h)
+	{
+		ballVelocityY *= -1;
+
+		ball.color = redColor;
+	}
+
+	else if (hasCollision(spriteBounds, ball))
+	{
+		ballVelocityX *= -1;
+		ballVelocityY *= -1;
+
+		ball.color = blueColor;
+	}
+
+	ball.x += ballVelocityX;
+	ball.y += ballVelocityY;
 }
 
 int main(int argc, char *argv[])
@@ -47,76 +117,28 @@ int main(int argc, char *argv[])
 	C2D_Image sprite = C2D_SpriteSheetGetImage(sheet, 0);
 
 	// Create colors
-	u32 whiteColor = C2D_Color32(0xFF, 0xFF, 0xFF, 0xFF);
-	u32 blackColor = C2D_Color32(0x00, 0x00, 0x00, 0x00);
-	// u32 greenColor = C2D_Color32(0x00, 0xFF, 0x00, 0xFF);
-	// u32 redColor = C2D_Color32(0xFF, 0x00, 0x00, 0xFF);
-	u32 blueColor  = C2D_Color32(0x00, 0x00, 0xFF, 0xFF);
+	whiteColor = C2D_Color32(0xFF, 0xFF, 0xFF, 0xFF);
+	blackColor = C2D_Color32(0x00, 0x00, 0x00, 0x00);
+	greenColor = C2D_Color32(0x00, 0xFF, 0x00, 0xFF);
+	redColor = C2D_Color32(0xFF, 0x00, 0x00, 0xFF);
+	blueColor = C2D_Color32(0x00, 0x00, 0xFF, 0xFF);
 
-	Rectangle spriteBounds = {TOP_SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 32, 32, whiteColor};
-	Rectangle ball = {TOP_SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2, 0, 20, 20, whiteColor};
-	Rectangle bottomBall = {BOTTOM_SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 32, 32, blueColor};
-
-	int ballVelocityX = 5;
-	int ballVelocityY = 5;
+	spriteBounds = {TOP_SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 32, 32, whiteColor};
+	ball = {TOP_SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2, 0, 20, 20, whiteColor};
+	bottomBounds = {BOTTOM_SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 32, 32, blueColor};
 
 	// Main loop
 	while (aptMainLoop())
 	{
 		// printf("\x1b[1;1HSimple citro2d shapes example");
-
 		hidScanInput();
 
-		// Respond to user input
 		u32 keyDown = hidKeysDown();
-		u32 keyHeld = hidKeysHeld();
 
 		if (keyDown & KEY_START)
-			break; // break in order to return to hbmenu
+			break;
 
-		if (keyHeld & KEY_LEFT && spriteBounds.x > 0)
-		{
-			spriteBounds.x -= SPEED;
-		}
-
-		else if (keyHeld & KEY_RIGHT && spriteBounds.x < TOP_SCREEN_WIDTH - spriteBounds.w)
-		{
-			spriteBounds.x += SPEED;
-		}
-		else if (keyHeld & KEY_UP && spriteBounds.y > 0)
-		{
-			spriteBounds.y -= SPEED;
-		}
-		else if (keyHeld & KEY_DOWN && spriteBounds.y < SCREEN_HEIGHT - spriteBounds.h)
-		{
-			spriteBounds.y += SPEED;
-		}
-
-		// bottom screen update
-		if (ball.x < 0 || ball.x > TOP_SCREEN_WIDTH - ball.w)
-		{
-			ballVelocityX *= -1;
-
-			// colorIndex = rand_range(0, 5);
-		}
-
-		else if (ball.y < 0 || ball.y > SCREEN_HEIGHT - ball.h)
-		{
-			ballVelocityY *= -1;
-
-			// colorIndex = rand_range(0, 5);
-		}
-
-		else if (hasCollision(spriteBounds, ball))
-		{
-			ballVelocityX *= -1;
-			ballVelocityY *= -1;
-
-			// colorIndex = rand_range(0, 5);
-		}
-
-		ball.x += ballVelocityX;
-		ball.y += ballVelocityY;
+		update(keyDown);
 
 		// Render the scene
 		C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
@@ -135,7 +157,7 @@ int main(int argc, char *argv[])
 		C2D_TargetClear(bottom, blackColor);
 		C2D_SceneBegin(bottom);
 
-		C2D_DrawRectSolid(bottomBall.x, bottomBall.y, bottomBall.z, bottomBall.w, bottomBall.h, bottomBall.color);
+		C2D_DrawRectSolid(bottomBounds.x, bottomBounds.y, bottomBounds.z, bottomBounds.w, bottomBounds.h, bottomBounds.color);
 
 		C3D_FrameEnd(0);
 	}
