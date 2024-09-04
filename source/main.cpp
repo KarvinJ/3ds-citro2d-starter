@@ -5,11 +5,12 @@ const int TOP_SCREEN_WIDTH = 400;
 const int BOTTOM_SCREEN_WIDTH = 320;
 const int SCREEN_HEIGHT = 240;
 
-u32 whiteColor;
-u32 blackColor;
-u32 greenColor;
-u32 redColor;
-u32 blueColor;
+// Create colors
+u32 whiteColor = C2D_Color32(0xFF, 0xFF, 0xFF, 0xFF);
+u32 blackColor = C2D_Color32(0x00, 0x00, 0x00, 0x00);
+u32 greenColor = C2D_Color32(0x00, 0xFF, 0x00, 0xFF);
+u32 redColor = C2D_Color32(0xFF, 0x00, 0x00, 0xFF);
+u32 blueColor = C2D_Color32(0x00, 0x00, 0xFF, 0xFF);
 
 const int SPEED = 10;
 
@@ -26,9 +27,9 @@ typedef struct
 	unsigned int color;
 } Rectangle;
 
-Rectangle spriteBounds;
-Rectangle ball;
-Rectangle bottomBounds;
+Rectangle spriteBounds = {TOP_SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 32, 32, whiteColor};
+Rectangle ball = {TOP_SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2, 0, 20, 20, whiteColor};
+Rectangle bottomBounds = {BOTTOM_SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 32, 32, blueColor};
 
 bool hasCollision(Rectangle bounds, Rectangle ball)
 {
@@ -109,17 +110,6 @@ int main(int argc, char *argv[])
 	// Load the sprite
 	C2D_SpriteSheet sheet = C2D_SpriteSheetLoad("romfs:/gfx/alien_1.t3x");
 	C2D_Image sprite = C2D_SpriteSheetGetImage(sheet, 0);
-
-	// Create colors
-	whiteColor = C2D_Color32(0xFF, 0xFF, 0xFF, 0xFF);
-	blackColor = C2D_Color32(0x00, 0x00, 0x00, 0x00);
-	greenColor = C2D_Color32(0x00, 0xFF, 0x00, 0xFF);
-	redColor = C2D_Color32(0xFF, 0x00, 0x00, 0xFF);
-	blueColor = C2D_Color32(0x00, 0x00, 0xFF, 0xFF);
-
-	spriteBounds = {TOP_SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 32, 32, whiteColor};
-	ball = {TOP_SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2, 0, 20, 20, whiteColor};
-	bottomBounds = {BOTTOM_SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 32, 32, blueColor};
 
 	// Main loop
 	while (aptMainLoop())
