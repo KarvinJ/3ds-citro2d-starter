@@ -1,6 +1,6 @@
 # 3DS CITRO2D STARTER
 
-A Very simple Nintendo 3DS CITRO2D starter template.
+A Nintendo 3DS CITRO2D starter template.
 
 # Building
 
