@@ -39,6 +39,7 @@ typedef struct
 Rectangle spriteBounds = {TOP_SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 32, 32, WHITE};
 Rectangle ball = {TOP_SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2, 0, 20, 20, WHITE};
 Rectangle bottomBounds = {BOTTOM_SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 32, 32, BLUE};
+Rectangle touchBounds = {0, 0, 0, 16, 16, WHITE};
 
 bool hasCollision(Rectangle bounds, Rectangle ball)
 {
@@ -46,18 +47,10 @@ bool hasCollision(Rectangle bounds, Rectangle ball)
 		   bounds.y < ball.y + ball.h && bounds.y + bounds.h > ball.y;
 }
 
-void update(u32 keyDown)
+void update()
 {
 	// Respond to user input
 	u32 keyHeld = hidKeysHeld();
-
-	if (keyDown & KEY_A)
-	{
-		if (bottomBounds.color == RED)
-			bottomBounds.color = BLUE;
-		else
-			bottomBounds.color = RED;
-	}
 
 	if (keyHeld & KEY_LEFT && spriteBounds.x > 0)
 	{
@@ -140,6 +133,22 @@ int main(int argc, char *argv[])
 	{
 		hidScanInput();
 
+		touchPosition touch;
+
+		// Read the touch screen coordinates
+		hidTouchRead(&touch);
+
+		touchBounds.x = touch.px;
+		touchBounds.y = touch.py;
+
+		if (hasCollision(touchBounds, bottomBounds))
+		{
+			if (bottomBounds.color == RED)
+				bottomBounds.color = BLUE;
+			else
+				bottomBounds.color = RED;
+		}
+
 		u32 keyDown = hidKeysDown();
 
 		if (keyDown & KEY_START)
@@ -149,7 +158,7 @@ int main(int argc, char *argv[])
 
 		if (!isGamePaused)
 		{
-			update(keyDown);
+			update();
 		}
 
 		// Render the top screen
