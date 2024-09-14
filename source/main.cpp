@@ -128,12 +128,12 @@ int main(int argc, char *argv[])
 
 	float textSize = 1.0f;
 
+	touchPosition touch;
+
 	// Main loop
 	while (aptMainLoop())
 	{
 		hidScanInput();
-
-		touchPosition touch;
 
 		// Read the touch screen coordinates
 		hidTouchRead(&touch);
