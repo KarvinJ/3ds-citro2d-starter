@@ -68,10 +68,12 @@ void update()
 	{
 		spriteBounds.x += PLAYER_SPEED;
 	}
+
 	else if (keyHeld & KEY_UP && spriteBounds.y > 0)
 	{
 		spriteBounds.y -= PLAYER_SPEED;
 	}
+	
 	else if (keyHeld & KEY_DOWN && spriteBounds.y < SCREEN_HEIGHT - spriteBounds.h)
 	{
 		spriteBounds.y += PLAYER_SPEED;
