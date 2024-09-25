@@ -50,7 +50,7 @@ bool hasCollision(Rectangle bounds, Rectangle ball)
 void update()
 {
 	// Respond to user input
-	u32 keyHeld = hidKeysHeld();
+	int keyHeld = hidKeysHeld();
 
 	if (keyHeld & KEY_LEFT && spriteBounds.x > 0)
 	{
@@ -156,7 +156,7 @@ int main(int argc, char *argv[])
 			bottomBounds.color = BLUE;
 		}
 
-		u32 keyDown = hidKeysDown();
+		int keyDown = hidKeysDown();
 
 		if (keyDown & KEY_START)
 		{
