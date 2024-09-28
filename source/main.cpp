@@ -48,7 +48,7 @@ Rectangle ball = {TOP_SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2, 0, 20, 20, WHITE
 Rectangle bottomBounds = {BOTTOM_SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 32, 32, BLUE};
 Rectangle touchBounds = {0, 0, 0, 8, 8, WHITE};
 
-bool hasCollision(Rectangle bounds, Rectangle ball)
+bool hasCollision(Rectangle &bounds, Rectangle &ball)
 {
 	return bounds.x < ball.x + ball.w && bounds.x + bounds.w > ball.x &&
 		   bounds.y < ball.y + ball.h && bounds.y + bounds.h > ball.y;
