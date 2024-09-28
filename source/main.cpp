@@ -28,11 +28,6 @@ const u32 GREEN = C2D_Color32(0x00, 0xFF, 0x00, 0xFF);
 const u32 RED = C2D_Color32(0xFF, 0x00, 0x00, 0xFF);
 const u32 BLUE = C2D_Color32(0x00, 0x00, 0xFF, 0xFF);
 
-const int PLAYER_SPEED = 10;
-
-int ballVelocityX = 5;
-int ballVelocityY = 5;
-
 typedef struct
 {
 	float x;
@@ -47,6 +42,11 @@ Rectangle spriteBounds = {TOP_SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 32, 32, WH
 Rectangle ball = {TOP_SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2, 0, 20, 20, WHITE};
 Rectangle bottomBounds = {BOTTOM_SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 32, 32, BLUE};
 Rectangle touchBounds = {0, 0, 0, 8, 8, WHITE};
+
+const int PLAYER_SPEED = 10;
+
+int ballVelocityX = 5;
+int ballVelocityY = 5;
 
 bool hasCollision(Rectangle &bounds, Rectangle &ball)
 {
