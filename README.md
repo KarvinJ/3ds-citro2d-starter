@@ -12,8 +12,6 @@ I built everything using Windows 10
 
 * Install [devkitpro](https://devkitpro.org/wiki/Getting_Started#Unix-like_platforms)
 
-* Clone this repo:  
-  `git clone https://github.com/KarvinJ/3ds-citro2d-starter.git`
-
+* Clone this repo
 * `cd 3ds-citro2d-starter`
 * `make`
