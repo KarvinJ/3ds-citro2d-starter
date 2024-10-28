@@ -1,5 +1,5 @@
 /build
 /romfs
-3ds-citro2d-starter.3dsx
-3ds-citro2d-starter.elf
-3ds-citro2d-starter.smdh
+*.3dsx
+*.elf
+*.smdh
