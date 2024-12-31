@@ -149,7 +149,7 @@ int main(int argc, char *argv[])
 	// Optimize the static text strings
 	C2D_TextOptimize(&staticTexts[0]);
 
-	playerSprite = loadSprite("romfs:/gfx/alien_1.t3x", TOP_SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 32, 32);
+	playerSprite = loadSprite("alien_1.t3x", TOP_SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 32, 32);
 
 	touchPosition touch;
 
