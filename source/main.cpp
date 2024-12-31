@@ -200,6 +200,9 @@ int main(int argc, char *argv[])
 	C2D_TextBufDelete(textDynamicBuffer);
 	C2D_TextBufDelete(textStaticBuffer);
 
+	// Delete the loaded sheet.
+	C2D_SpriteSheetFree(playerSprite.sheet);
+
 	// Deinit libs
 	C2D_Fini();
 	C3D_Fini();
