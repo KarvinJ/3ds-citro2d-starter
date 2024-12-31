@@ -19,13 +19,6 @@ C2D_Text staticTexts[1];
 
 float textSize = 1.0f;
 
-// Create colors
-const u32 WHITE = C2D_Color32(0xFF, 0xFF, 0xFF, 0xFF);
-const u32 BLACK = C2D_Color32(0x00, 0x00, 0x00, 0x00);
-const u32 GREEN = C2D_Color32(0x00, 0xFF, 0x00, 0xFF);
-const u32 RED = C2D_Color32(0xFF, 0x00, 0x00, 0xFF);
-const u32 BLUE = C2D_Color32(0x00, 0x00, 0xFF, 0xFF);
-
 Sprite playerSprite;
 
 Rectangle ball = {TOP_SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2, 0, 20, 20, WHITE};
@@ -56,7 +49,7 @@ void update()
 	{
 		playerSprite.bounds.y -= PLAYER_SPEED;
 	}
-	
+
 	else if (keyHeld & KEY_DOWN && playerSprite.bounds.y < SCREEN_HEIGHT - playerSprite.bounds.h)
 	{
 		playerSprite.bounds.y += PLAYER_SPEED;
@@ -127,15 +120,7 @@ void renderBottomScreen()
 
 	drawRectangle(bottomBounds);
 
-	C2D_TextBufClear(textDynamicBuffer);
-
-	// Generate and draw dynamic text
-	char buf[160];
-	C2D_Text dynamicText;
-	snprintf(buf, sizeof(buf), "Total collisions: %d", collisionCounter);
-	C2D_TextParse(&dynamicText, textDynamicBuffer, buf);
-	C2D_TextOptimize(&dynamicText);
-	C2D_DrawText(&dynamicText, C2D_AlignCenter | C2D_WithColor, 150, 175, 0, textSize, textSize, WHITE);
+	drawDynamicText("Total collisions: %d", collisionCounter, textDynamicBuffer, 150, 175, textSize);
 
 	C3D_FrameEnd(0);
 }
