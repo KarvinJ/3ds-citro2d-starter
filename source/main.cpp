@@ -1,4 +1,4 @@
-#include "starter.h"
+#include "graphics.h"
 
 // the 3ds has different screen width, but the same screen height.
 const int TOP_SCREEN_WIDTH = 400;
@@ -90,8 +90,7 @@ void renderTopScreen()
 	// (float x, float y, float z, float  w, float h, u32 clr)
 	drawRectangle(ball);
 
-	// ( 	C2D_Image img, float x, float y, float depth, const C2D_ImageTint *tint C2D_OPTIONALnullptr, float scaleX C2D_OPTIONAL1.0f, float scaleY C2D_OPTIONAL1.0f)
-	renderSprite(playerSprite);
+	drawSprite(playerSprite);
 
 	if (isGamePaused)
 	{
