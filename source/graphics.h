@@ -1,10 +1,6 @@
 #pragma once
 
-#include <3ds/svc.h>
-#include <3ds/types.h>
 #include <citro2d.h>
-
-#define ANIMATION_REFRESH_TIME_MIN 34 //  A minimum of the animation refresh time is 34ms if 60 fps then set to 17ms
 
 const u32 WHITE = C2D_Color32(0xFF, 0xFF, 0xFF, 0xFF);
 const u32 BLACK = C2D_Color32(0x00, 0x00, 0x00, 0x00);
@@ -57,7 +53,3 @@ void drawSprite(Sprite &sprite);
 void drawDynamicText(const char *textFormat, int value, C2D_TextBuf &dynamicBuffer, int positionX, int positionY, float textSize);
 
 void drawAndRotateImage(Sprite &sprite, float rotation);
-
-void handleSpriteRotation(C2D_Sprite *sprites, Rectangle &spriteBounds, size_t spritesQuantity, float rotationAngle);
-
-void drawSpriteAnimation(C2D_Sprite *sprites, SpriteRefreshInfo &refreshInfo, SpriteFrameInfo &frameInfo);
