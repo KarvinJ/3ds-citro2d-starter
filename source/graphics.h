@@ -2,28 +2,14 @@
 
 #include <citro2d.h>
 
-const u32 WHITE = C2D_Color32(0xFF, 0xFF, 0xFF, 0xFF);
-const u32 BLACK = C2D_Color32(0x00, 0x00, 0x00, 0x00);
+//it supports rgb values too.
+const u32 WHITE = C2D_Color32(255, 255, 255, 255);
+const u32 BLACK = C2D_Color32(0, 0, 0, 0);
+const u32 RED = C2D_Color32(255, 0, 0, 255);
+const u32 GREEN = C2D_Color32(0, 255, 0, 255);
+const u32 BLUE = C2D_Color32(0, 0, 255, 255);
 const u32 YELLOW = C2D_Color32(0xF3, 0xD8, 0x3F, 0xFF);
-const u32 GREEN = C2D_Color32(0x00, 0xFF, 0x00, 0xFF);
-const u32 RED = C2D_Color32(0xFF, 0x00, 0x00, 0xFF);
-const u32 BLUE = C2D_Color32(0x00, 0x00, 0xFF, 0xFF);
 const u32 BROWN = C2D_Color32(0x1D, 0x1D, 0x1B, 0xFF);
-
-typedef struct SpriteRefreshInfo
-{
-    uint64_t start;       ///< Start time
-    uint64_t stop;        ///< Lap time
-    uint64_t elapsed;     ///< Elapsed time (`start` - `stop`)
-    uint64_t refreshTime; ///< Next sprite update time [Unit: ms]
-} SpriteRefreshInfo;
-
-typedef struct SpriteFrameInfo
-{
-    unsigned int currentFrameIndex; ///< Current sprite ID number
-    size_t SpritesQuantity;  ///< Number of sprites
-    bool shouldLoopOnce;     ///< Sprite animation loop information
-} SpriteFrameInfo;
 
 typedef struct
 {
